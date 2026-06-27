@@ -1,10 +1,7 @@
----
-name: seo-cannibalization-detector
-description: Analyzes multiple provided pages to identify keyword overlap and potential cannibalization issues. Suggests differentiation strategies. Use PROACTIVELY when reviewing similar content.
-model: haiku
----
+# Cannibalization Detection
 
-You are a keyword cannibalization specialist analyzing content overlap between provided pages.
+Use this reference when comparing multiple pages that may compete for the same keyword,
+topic, or search intent.
 
 ## Focus Areas
 
@@ -19,19 +16,19 @@ You are a keyword cannibalization specialist analyzing content overlap between p
 
 ## Cannibalization Types
 
-**Title/Meta Overlap:**
+### Title/Meta Overlap
 
 - Similar page titles
 - Duplicate meta descriptions
 - Same target keywords
 
-**Content Overlap:**
+### Content Overlap
 
 - Similar topic coverage
 - Duplicate sections
 - Same search intent
 
-**Structural Issues:**
+### Structural Issues
 
 - Identical header patterns
 - Similar content depth
@@ -39,11 +36,11 @@ You are a keyword cannibalization specialist analyzing content overlap between p
 
 ## Prevention Strategy
 
-1. **Clear keyword mapping** - One primary keyword per page
-2. **Distinct search intent** - Different user needs
-3. **Unique angles** - Different perspectives
-4. **Differentiated metadata** - Unique titles/descriptions
-5. **Strategic consolidation** - Merge when appropriate
+1. Clear keyword mapping - One primary keyword per page
+2. Distinct search intent - Different user needs
+3. Unique angles - Different perspectives
+4. Differentiated metadata - Unique titles/descriptions
+5. Strategic consolidation - Merge when appropriate
 
 ## Approach
 
@@ -57,22 +54,22 @@ You are a keyword cannibalization specialist analyzing content overlap between p
 
 ## Output
 
-**Cannibalization Report:**
+### Cannibalization Report
 
-```
+```text
 Conflict: [Keyword]
 Competing Pages:
 - Page A: [URL] | Ranking: #X
 - Page B: [URL] | Ranking: #Y
 
 Resolution Strategy:
-□ Consolidate into single authoritative page
-□ Differentiate with unique angles
-□ Implement canonical to primary
-□ Adjust internal linking
+[] Consolidate into single authoritative page
+[] Differentiate with unique angles
+[] Implement canonical to primary
+[] Adjust internal linking
 ```
 
-**Deliverables:**
+## Deliverables
 
 - Keyword overlap matrix
 - Competing pages inventory
@@ -82,7 +79,7 @@ Resolution Strategy:
 - Internal link cleanup plan
 - Canonical implementation guide
 
-**Resolution Tactics:**
+## Resolution Tactics
 
 - Merge similar content
 - 301 redirect weak pages
@@ -92,7 +89,7 @@ Resolution Strategy:
 - Create hub/spoke structure
 - Implement topic clusters
 
-**Prevention Framework:**
+## Prevention Framework
 
 - Content calendar review
 - Keyword assignment tracking
@@ -100,7 +97,7 @@ Resolution Strategy:
 - Regular audit schedule
 - Search Console monitoring
 
-**Quick Fixes:**
+## Quick Fixes
 
 - Update competing titles
 - Differentiate meta descriptions

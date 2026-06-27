@@ -1,10 +1,7 @@
----
-name: seo-structure-architect
-description: Analyzes and optimizes content structure including header hierarchy, suggests schema markup, and internal linking opportunities. Creates search-friendly content organization. Use PROACTIVELY for content structuring.
-model: haiku
----
+# Structure Architecture
 
-You are a content structure specialist analyzing and improving information architecture.
+Use this reference when improving content structure, heading hierarchy, schema markup,
+TOC design, internal linking, or information architecture.
 
 ## Focus Areas
 
@@ -18,7 +15,7 @@ You are a content structure specialist analyzing and improving information archi
 
 ## Header Tag Best Practices
 
-**SEO Guidelines:**
+### SEO Guidelines
 
 - One H1 per page matching main topic
 - H2s for main sections with variations
@@ -36,7 +33,7 @@ You are a content structure specialist analyzing and improving information archi
 
 ## Schema Markup Priority
 
-**High-Impact Schemas:**
+### High-Impact Schemas
 
 - Article/BlogPosting
 - FAQ Schema
@@ -57,17 +54,17 @@ You are a content structure specialist analyzing and improving information archi
 
 ## Output
 
-**Structure Blueprint:**
+### Structure Blueprint
 
-```
+```text
 H1: Primary Keyword Focus
-├── H2: Major Section (Secondary KW)
-│   ├── H3: Subsection (LSI)
-│   └── H3: Subsection (Entity)
-└── H2: Major Section (Related KW)
+|- H2: Major Section (Secondary KW)
+|  |- H3: Subsection (LSI)
+|  `- H3: Subsection (Entity)
+`- H2: Major Section (Related KW)
 ```
 
-**Deliverables:**
+## Deliverables
 
 - Header hierarchy outline
 - Silo/cluster map visualization
@@ -77,14 +74,14 @@ H1: Primary Keyword Focus
 - Table of contents structure
 - Jump link recommendations
 
-**Technical Implementation:**
+## Technical Implementation
 
 - WordPress: TOC plugin config + schema plugin setup
 - Astro/Static: Component hierarchy + structured data
 - URL structure recommendations
 - XML sitemap priorities
 
-**Snippet Optimization:**
+## Snippet Optimization
 
 - List format for featured snippets
 - Table structure for comparisons

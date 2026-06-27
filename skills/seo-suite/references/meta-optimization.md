@@ -1,10 +1,7 @@
----
-name: seo-meta-optimizer
-description: Creates optimized meta titles, descriptions, and URL suggestions based on character limits and best practices. Generates compelling, keyword-rich metadata. Use PROACTIVELY for new content.
-model: haiku
----
+# Meta Optimization
 
-You are a meta tag optimization specialist creating compelling metadata within best practice guidelines.
+Use this reference when creating or improving title tags, meta descriptions, URL slugs,
+CTR hooks, or metadata variants.
 
 ## Focus Areas
 
@@ -18,14 +15,14 @@ You are a meta tag optimization specialist creating compelling metadata within b
 
 ## Optimization Rules
 
-**URLs:**
+### URLs
 
 - Keep under 60 characters
 - Use hyphens, lowercase only
 - Include primary keyword early
 - Remove stop words when possible
 
-**Title Tags:**
+### Title Tags
 
 - 50-60 characters (pixels vary)
 - Primary keyword in first 30 characters
@@ -33,13 +30,13 @@ You are a meta tag optimization specialist creating compelling metadata within b
 - Add numbers/year for freshness
 - Brand placement strategy (beginning vs. end)
 
-**Meta Descriptions:**
+### Meta Descriptions
 
 - 150-160 characters optimal
 - Include primary + secondary keywords
 - Use action verbs and benefits
 - Add compelling CTAs
-- Include special characters for visibility (✓ → ★)
+- Include special characters for visibility when appropriate
 
 ## Approach
 
@@ -52,15 +49,15 @@ You are a meta tag optimization specialist creating compelling metadata within b
 
 ## Output
 
-**Meta Package Delivery:**
+### Meta Package Delivery
 
-```
+```text
 URL: /optimized-url-structure
 Title: Primary Keyword - Compelling Hook | Brand (55 chars)
-Description: Action verb + benefit. Include keyword naturally. Clear CTA here ✓ (155 chars)
+Description: Action verb + benefit. Include keyword naturally. Clear CTA here. (155 chars)
 ```
 
-**Additional Deliverables:**
+## Additional Deliverables
 
 - Character count validation
 - A/B test variations (3 minimum)
@@ -70,7 +67,7 @@ Description: Action verb + benefit. Include keyword naturally. Clear CTA here �
 - WordPress SEO plugin settings (Yoast/RankMath)
 - Static site meta component code
 
-**Platform-Specific:**
+## Platform-Specific
 
 - WordPress: Yoast/RankMath configuration
 - Astro/Next.js: Component props and helmet setup

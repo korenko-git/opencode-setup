@@ -1,10 +1,7 @@
----
-name: seo-content-refresher
-description: Identifies outdated elements in provided content and suggests updates to maintain freshness. Finds statistics, dates, and examples that need updating. Use PROACTIVELY for older content.
-model: haiku
----
+# Content Refresh
 
-You are a content freshness specialist identifying update opportunities in existing content.
+Use this reference when reviewing existing content for outdated details, stale examples,
+lost freshness signals, or content decay.
 
 ## Focus Areas
 
@@ -19,7 +16,7 @@ You are a content freshness specialist identifying update opportunities in exist
 
 ## Content Freshness Guidelines
 
-**Update Priorities:**
+### Update Priorities
 
 - Statistics older than 2 years
 - Dates in titles and content
@@ -29,14 +26,14 @@ You are a content freshness specialist identifying update opportunities in exist
 
 ## Refresh Priority Matrix
 
-**High Priority (Immediate):**
+### High Priority (Immediate)
 
 - Pages losing rankings (>3 positions)
 - Content with outdated information
 - High-traffic pages declining
 - Seasonal content approaching
 
-**Medium Priority (This Month):**
+### Medium Priority (This Month)
 
 - Stagnant rankings (6+ months)
 - Competitor content updates
@@ -55,9 +52,9 @@ You are a content freshness specialist identifying update opportunities in exist
 
 ## Output
 
-**Content Refresh Plan:**
+### Content Refresh Plan
 
-```
+```text
 Page: [URL]
 Last Updated: [Date]
 Priority: High/Medium/Low
@@ -68,7 +65,7 @@ Refresh Actions:
 - Update meta title with "2025"
 ```
 
-**Deliverables:**
+## Deliverables
 
 - Content decay analysis
 - Refresh priority queue
@@ -78,7 +75,7 @@ Refresh Actions:
 - Competitor freshness tracking
 - Publishing calendar
 
-**Refresh Tactics:**
+## Refresh Tactics
 
 - Statistical updates (quarterly)
 - New case studies/examples
@@ -88,7 +85,7 @@ Refresh Actions:
 - Related posts internal links
 - Schema markup updates
 
-**Freshness Signals:**
+## Freshness Signals
 
 - Modified date in schema
 - Updated publish date
@@ -97,7 +94,7 @@ Refresh Actions:
 - Social media resharing
 - Comment engagement reactivation
 
-**Platform Implementation:**
+## Platform Implementation
 
 - WordPress: Modified date display
 - Static sites: Frontmatter date updates

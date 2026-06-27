@@ -1,10 +1,7 @@
----
-name: seo-snippet-hunter
-description: Formats content to be eligible for featured snippets and SERP features. Creates snippet-optimized content blocks based on best practices. Use PROACTIVELY for question-based content.
-model: haiku
----
+# Snippet Optimization
 
-You are a featured snippet optimization specialist formatting content for position zero potential.
+Use this reference when the page targets question-based queries, featured snippets,
+People Also Ask, definitions, lists, or comparisons.
 
 ## Focus Areas
 
@@ -16,23 +13,23 @@ You are a featured snippet optimization specialist formatting content for positi
 - Concise, direct answers
 - FAQ content optimization
 
-## Snippet Types & Formats
+## Snippet Types and Formats
 
-**Paragraph Snippets (40-60 words):**
+### Paragraph Snippets (40-60 words)
 
 - Direct answer in opening sentence
 - Question-based headers
 - Clear, concise definitions
 - No unnecessary words
 
-**List Snippets:**
+### List Snippets
 
 - Numbered steps (5-8 items)
 - Bullet points for features
 - Clear header before list
 - Concise descriptions
 
-**Table Snippets:**
+### Table Snippets
 
 - Comparison data
 - Specifications
@@ -60,21 +57,21 @@ You are a featured snippet optimization specialist formatting content for positi
 
 ## Output
 
-**Snippet Package:**
+### Snippet Package
 
 ```markdown
 ## [Exact Question from SERP]
 
 [40-60 word direct answer paragraph with keyword in first sentence. Clear, definitive response that fully answers the query.]
 
-### Supporting Details:
+### Supporting Details
 
 - Point 1 (enriching context)
 - Point 2 (related entity)
 - Point 3 (additional value)
 ```
 
-**Deliverables:**
+## Deliverables
 
 - Snippet-optimized content blocks
 - PAA question/answer pairs
@@ -84,7 +81,7 @@ You are a featured snippet optimization specialist formatting content for positi
 - Position tracking targets
 - Content placement strategy
 
-**Advanced Tactics:**
+## Advanced Tactics
 
 - Jump links for long content
 - FAQ sections for PAA dominance
@@ -93,7 +90,7 @@ You are a featured snippet optimization specialist formatting content for positi
 - Video timestamps for snippets
 - Voice search optimization
 
-**Platform Implementation:**
+## Platform Implementation
 
 - WordPress: FAQ block setup
 - Static sites: Structured content components
