@@ -1,4 +1,5 @@
 ---
+name: accessibility-audit
 description: "Audit UI code for WCAG compliance"
 argument-hint: "[file-path|component-name|--level AA|AAA]"
 ---

@@ -1,4 +1,5 @@
 ---
+name: code-migrate
 description: Generate comprehensive migration plans and scripts for transitioning codebases between frameworks, languages, versions, or platforms with minimal disruption.
 ---
 
