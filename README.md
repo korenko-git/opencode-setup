@@ -7,6 +7,7 @@ It contains:
 - focused local agents for architecture, languages, data, UI, and TDD,
 - explicit slash commands for recurring workflows,
 - primary reusable skills in `skills/`,
+- modular rule files in `rules/` and `docs/`,
 - a separate OpenCode reference suite in `.agents/skills/` for authoring and maintaining OpenCode itself.
 
 ## Snapshot
@@ -23,8 +24,10 @@ It contains:
 ~/.config/opencode/
 ├── AGENTS.md                 # Global instructions for agents working in this repo
 ├── README.md                 # This document
+├── docs/                     # Task-specific rule files loaded on demand
 ├── opencode.jsonc            # Main OpenCode config
 ├── package.json              # Plugin dependency
+├── rules/                    # Always-applicable shared guidelines
 ├── agents/                   # Local agent definitions
 ├── commands/                 # Slash commands available in the TUI
 ├── skills/                   # Primary reusable skills
@@ -37,14 +40,18 @@ It contains:
 | File | Purpose |
 |------|---------|
 | `opencode.jsonc` | Main OpenCode config using schema `https://opencode.ai/config.json` |
-| `AGENTS.md` | Repository-level instructions for language, git behavior, security, and execution order |
+| `AGENTS.md` | Router-style instruction entrypoint with lazy-loaded references |
+| `rules/general-guidelines.md` | Always-applicable execution, code style, git, and security rules |
+| `docs/architecture-rules.md` | Architecture, reuse, module ownership, and anti-duplication guardrails |
 | `package.json` | Pins `@opencode-ai/plugin` to `1.17.7` |
 
 ### Current Config Notes
 
 - All skills are allowed by default through `opencode.jsonc`.
 - `improve-codebase-architecture` is explicitly denied in `opencode.jsonc`.
-- User-facing communication should match the user's language, per `AGENTS.md`.
+- `AGENTS.md` uses lazy loading for referenced instruction files instead of inlining every rule.
+- User-facing communication should match the user's language, per `rules/general-guidelines.md`.
+- The active rule path is intentionally minimal: always load `rules/general-guidelines.md`, and load `docs/architecture-rules.md` when the task needs architecture guidance.
 
 ## Local Agents
 
@@ -173,10 +180,14 @@ These live under `.agents/skills/` and document how to work with OpenCode itself
 - The repository uses `~/.config/opencode` as the canonical location, not `.opencode/`.
 - Markdown command files are the main way recurring workflows are exposed to the TUI.
 - OpenCode-specific authoring guidance is intentionally separated into `.agents/skills/` so it does not mix with product/domain skills.
+- `AGENTS.md` is intentionally short and acts as a router to deeper guidance in `rules/` and `docs/`.
+- For non-trivial feature work, the preferred thinking model is module boundaries and domain ownership, using the design vocabulary from `skills/codebase-design` and `skills/domain-modeling`.
+- Architecture rules explicitly discourage one-file features, local utility duplication, and mixed-responsibility catch-all files.
 
 ## Maintenance Checklist
 
 - Update `README.md` when agent, command, or skill counts change materially.
+- Update `README.md` when the rule system in `AGENTS.md`, `rules/`, or `docs/` changes materially.
 - Prefer editing existing commands and skills over introducing duplicates.
 - Keep `skills/<name>/SKILL.md` compliant with OpenCode discovery rules.
 - Re-check command and skill diagnostics after substantive markdown edits.

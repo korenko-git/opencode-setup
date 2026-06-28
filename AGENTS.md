@@ -1,33 +1,24 @@
 # Global Agent Instructions
 
-## Language
+## External File Loading
 
-- Code comments and commit messages in English.
-- User communication: match the user's language.
+CRITICAL: When you encounter a file reference such as `@docs/architecture-rules.md`, use the Read tool to load it only when it is relevant to the current task.
 
-## Code Style
+Instructions:
 
-- Follow existing conventions in the project. When in doubt, read neighboring files.
-- No comments unless explicitly asked.
-- Prefer editing existing files over creating new ones.
-- Use type hints (Python), explicit types (TS/Go/Rust).
+- Do not preemptively load all referenced files.
+- Use lazy loading based on the actual task.
+- When a referenced file is loaded, treat its content as mandatory instructions for that task.
+- Follow nested references recursively when needed.
 
-## Git
+## Always Applicable Rules
 
-- Never commit secrets, keys, or tokens.
-- Run linter/typecheck before committing if available.
-- Commit messages: imperative mood, lowercase, no period. Examples: `add user endpoint`, `fix null check in auth`.
-- Do not commit unless explicitly asked.
+Read this file immediately because it applies to all tasks:
 
-## Behavioral
+@rules/general-guidelines.md
 
-- Execute steps in order. Do not skip ahead.
-- Halt on failure. Present the error and ask how to proceed.
-- When using agents via Task tool — specify `subagent_type`, pass full context in prompt, never assume shared state.
-- Prefer local agents only. No cross-plugin dependencies.
+## Task-Specific References
 
-## Security
+For architecture, module boundaries, utility reuse, file ownership, duplication control, and non-trivial feature design:
 
-- Never log or expose secrets and environment variables.
-- Use parameterized queries. Never interpolate user input into SQL.
-- Validate all external input at API boundaries.
+@docs/architecture-rules.md
