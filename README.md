@@ -12,9 +12,9 @@ It contains:
 
 ## Snapshot
 
-- **24 local agents** in `agents/`
+- **26 local agents** in `agents/`
 - **19 slash commands** in `commands/`
-- **11 primary skills** in `skills/`
+- **12 primary skills** in `skills/`
 - **7 OpenCode reference skills** in `.agents/skills/`
 - **Plugin version:** `@opencode-ai/plugin@1.17.7`
 
@@ -85,14 +85,21 @@ It contains:
 | `sql-pro` | SQL design, query tuning, analytical workloads |
 | `typescript-pro` | Advanced TypeScript and strict typing |
 
-### Product, UX, and Workflow
+### Product, UX, AI, and Workflow
 
 | Agent | Focus |
 |------|-------|
 | `design-system-architect` | Tokens, theming, component library design |
 | `ui-designer` | UI implementation, layouts, visual design |
+| `ai-engineer` | Production LLM apps, RAG systems, agent orchestration, multimodal AI |
 | `prompt-engineer` | Prompt design, review, and optimization |
 | `tdd-orchestrator` | Red-green-refactor workflow and TDD governance |
+
+### Documentation
+
+| Agent | Focus |
+|------|-------|
+| `api-documenter` | OpenAPI 3.1, SDK generation, interactive API docs, developer portals |
 
 ## Slash Commands
 
