@@ -1,4 +1,5 @@
 ---
+name: prompt-engineer
 description: Expert prompt engineer for designing, reviewing, optimizing and evaluating prompts, agent instructions and AI workflows.
 mode: subagent
 ---
