@@ -13,7 +13,7 @@ You MUST follow these rules exactly. Violating any of them is a failure.
 2. **Write output files.** Each step MUST produce its output file in `.tdd-cycle/` before the next step begins. Read from prior step files — do NOT rely on context window memory.
 3. **Stop at checkpoints.** When you reach a `PHASE CHECKPOINT`, you MUST stop and wait for explicit user approval before continuing. Use the AskUserQuestion tool with clear options.
 4. **Halt on failure.** If any step fails (agent error, test failure, missing dependency), STOP immediately. Present the error and ask the user how to proceed. Do NOT silently continue.
-5. **Use only local agents.** All `subagent_type` references use agents bundled with this plugin or `general-purpose`. No cross-plugin dependencies.
+5. **Use only local agents.** All `subagent_type` references use agents bundled with this plugin or built-in local agents such as `general` and `code-reviewer`. No cross-plugin dependencies.
 6. **Never enter plan mode autonomously.** Do NOT use EnterPlanMode. This command IS the plan — execute it.
 
 ## Pre-flight Checks
@@ -89,7 +89,7 @@ Use the Task tool to analyze requirements:
 
 ```
 Task:
-  subagent_type: "general-purpose"
+  subagent_type: "general"
   description: "Analyze requirements for TDD: $FEATURE"
   prompt: |
     You are a software architect specializing in test-driven development.
@@ -118,7 +118,7 @@ Use the Task tool to design test architecture:
 
 ```
 Task:
-  subagent_type: "general-purpose"
+  subagent_type: "general"
   description: "Design test architecture for $FEATURE"
   prompt: |
     You are a test automation expert specializing in test architecture and TDD workflows.
@@ -176,7 +176,7 @@ Use the Task tool:
 
 ```
 Task:
-  subagent_type: "general-purpose"
+  subagent_type: "general"
   description: "Write failing unit tests for $FEATURE"
   prompt: |
     You are a test automation expert specializing in TDD red phase.
@@ -210,7 +210,7 @@ Use the Task tool with the local code-reviewer agent:
 
 ```
 Task:
-  subagent_type: "tdd-workflows-code-reviewer"
+  subagent_type: "code-reviewer"
   description: "Verify tests fail correctly for $FEATURE"
   prompt: |
     Verify that all tests for: $FEATURE are failing correctly.
@@ -264,7 +264,7 @@ Use the Task tool:
 
 ```
 Task:
-  subagent_type: "general-purpose"
+  subagent_type: "general"
   description: "Implement minimal code to pass tests for $FEATURE"
   prompt: |
     You are a backend architect implementing the GREEN phase of TDD.
@@ -301,7 +301,7 @@ Use the Task tool:
 
 ```
 Task:
-  subagent_type: "general-purpose"
+  subagent_type: "general"
   description: "Verify all tests pass for $FEATURE"
   prompt: |
     You are a test automation expert verifying TDD green phase completion.
@@ -356,7 +356,7 @@ Use the Task tool with the local code-reviewer agent:
 
 ```
 Task:
-  subagent_type: "tdd-workflows-code-reviewer"
+  subagent_type: "code-reviewer"
   description: "Refactor implementation for $FEATURE"
   prompt: |
     Refactor the implementation for: $FEATURE while keeping all tests green.
@@ -388,7 +388,7 @@ Use the Task tool:
 
 ```
 Task:
-  subagent_type: "general-purpose"
+  subagent_type: "general"
   description: "Refactor tests for $FEATURE"
   prompt: |
     You are a test automation expert refactoring tests for clarity and maintainability.
@@ -445,7 +445,7 @@ Use the Task tool:
 
 ```
 Task:
-  subagent_type: "general-purpose"
+  subagent_type: "general"
   description: "Write failing integration tests for $FEATURE"
   prompt: |
     You are a test automation expert writing integration tests in TDD style.
@@ -475,7 +475,7 @@ Use the Task tool:
 
 ```
 Task:
-  subagent_type: "general-purpose"
+  subagent_type: "general"
   description: "Implement integration code for $FEATURE"
   prompt: |
     You are a backend architect implementing integration code.
@@ -503,7 +503,7 @@ Use the Task tool:
 
 ```
 Task:
-  subagent_type: "general-purpose"
+  subagent_type: "general"
   description: "Add performance and edge case tests for $FEATURE"
   prompt: |
     You are a test automation expert adding extended test coverage.
@@ -538,7 +538,7 @@ Use the Task tool with the local code-reviewer agent:
 
 ```
 Task:
-  subagent_type: "tdd-workflows-code-reviewer"
+  subagent_type: "code-reviewer"
   description: "Final TDD review of $FEATURE"
   prompt: |
     Perform comprehensive final review of: $FEATURE

@@ -12,7 +12,7 @@ You MUST follow these rules exactly. Violating any of them is a failure.
 1. **Write tests only — no production code.** Do NOT implement any production code during this phase.
 2. **Verify tests fail.** All generated tests MUST fail when run. If any test passes, investigate and fix.
 3. **Halt on error.** If test generation fails (syntax errors, import issues), STOP and present the error to the user.
-4. **Use only local agents.** All `subagent_type` references use agents bundled with this plugin or `general-purpose`. No cross-plugin dependencies.
+4. **Use only local agents.** All `subagent_type` references use agents bundled with this plugin or built-in local agents such as `general`. No cross-plugin dependencies.
 5. **Never enter plan mode autonomously.** Do NOT use EnterPlanMode. Execute directly.
 
 ## Test Generation Process
@@ -21,7 +21,7 @@ Use the Task tool to generate failing tests:
 
 ```
 Task:
-  subagent_type: "general-purpose"
+  subagent_type: "general"
   description: "Generate comprehensive failing tests for TDD red phase"
   prompt: |
     You are a test automation expert specializing in TDD red phase test generation.

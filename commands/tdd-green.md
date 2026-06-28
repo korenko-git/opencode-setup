@@ -12,7 +12,7 @@ You MUST follow these rules exactly. Violating any of them is a failure.
 1. **Implement only what tests require.** Do NOT add features, optimizations, or error handling beyond what failing tests demand.
 2. **Run tests after each change.** Verify progress incrementally — do not batch implement and hope it works.
 3. **Halt on failure.** If tests remain red after implementation or existing tests break, STOP and present the error to the user.
-4. **Use only local agents.** All `subagent_type` references use agents bundled with this plugin or `general-purpose`. No cross-plugin dependencies.
+4. **Use only local agents.** All `subagent_type` references use agents bundled with this plugin or built-in local agents such as `general`. No cross-plugin dependencies.
 5. **Never enter plan mode autonomously.** Do NOT use EnterPlanMode. Execute directly.
 
 ## Implementation Process
@@ -21,7 +21,7 @@ Use the Task tool to implement minimal passing code:
 
 ```
 Task:
-  subagent_type: "general-purpose"
+  subagent_type: "general"
   description: "Implement minimal code to pass failing tests"
   prompt: |
     You are a test automation expert implementing the GREEN phase of TDD.

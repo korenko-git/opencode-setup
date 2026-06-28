@@ -1,221 +1,148 @@
 ---
-description: Remove unused code from this project with ultrawork mode, LSP-verified safety, atomic commits
+description: "Remove unused code safely using local analysis, verification, and scoped edits"
+argument-hint: "[file-path|directory|symbol|all]"
+agent: build
 ---
 
-<command-instruction>
+# Remove Dead Code Safely
 
-Dead code removal via massively parallel deep agents. You are the ORCHESTRATOR — you scan, verify, batch, then delegate ALL removals to parallel agents.
+Analyze the current project for unused code and remove only high-confidence dead code.
 
-<rules>
-- **LSP is law.** Verify with `LspFindReferences(includeDeclaration=false)` before ANY removal decision.
-- **Never remove entry points.** `src/index.ts`, `src/cli/index.ts`, test files, config files, `packages/` — off-limits.
-- **You do NOT remove code yourself.** You scan, verify, batch, then fire deep agents. They do the work.
-</rules>
+## Scope
 
-<false-positive-guards>
-NEVER mark as dead:
-- Symbols in `src/index.ts` or barrel `index.ts` re-exports
-- Symbols referenced in test files (tests are valid consumers)
-- Symbols with `@public` / `@api` JSDoc tags
-- Hook factories (`createXXXHook`), tool factories (`createXXXTool`), agent definitions in `agentSources`
-- Command templates, skill definitions, MCP configs
-- Symbols in `package.json` exports
-</false-positive-guards>
+$ARGUMENTS
 
----
+## Core Rules
 
-## PHASE 1: SCAN — Find Dead Code Candidates
+1. Use only documented OpenCode capabilities and repo-local agents.
+2. Never commit, push, or create git history unless the user explicitly asks.
+3. Never use destructive rollback commands such as `git checkout --` or `git reset --hard`.
+4. Never remove likely entry points, public API surfaces, or config by default.
+5. Prefer a narrow, explainable cleanup over aggressive mass deletion.
 
-Run ALL of these in parallel:
+## False Positive Guards
 
-<parallel-scan>
+Treat these as live unless the user explicitly says otherwise:
 
-**TypeScript strict mode (your primary scanner — run this FIRST):**
-```bash
-bunx tsc --noEmit --noUnusedLocals --noUnusedParameters 2>&1
-```
-This gives you the definitive list of unused locals, imports, parameters, and types with exact file:line locations.
+- symbols exported from package entry points or barrel files,
+- anything referenced by tests,
+- command templates, skill definitions, agent files, and MCP/config files,
+- symbols marked as public API with tags such as `@public` or `@api`,
+- framework entry files such as `src/index.*`, `src/main.*`, `app/layout.*`, CLI entry points, and package export targets.
 
-**Explore agents (fire ALL simultaneously as background):**
+## Scope Control
 
-```
-task(subagent_type="explore", run_in_background=true, load_skills=[],
-  description="Find orphaned files",
-  prompt="Find files in src/ NOT imported by any other file. Check all import statements. EXCLUDE: index.ts, *.test.ts, entry points, .md, packages/. Return: file paths.")
+Interpret `$ARGUMENTS` like this:
 
-task(subagent_type="explore", run_in_background=true, load_skills=[],
-  description="Find unused exported symbols",
-  prompt="Find exported functions/types/constants in src/ that are never imported by other files. Cross-reference: for each export, grep the symbol name across src/ — if it only appears in its own file, it's a candidate. EXCLUDE: src/index.ts exports, test files. Return: file path, line, symbol name, export type.")
-```
+- file path -> inspect only that file,
+- directory -> inspect only that directory,
+- symbol name -> inspect only matching definitions and references,
+- `all` or empty -> inspect the whole project conservatively.
 
-</parallel-scan>
+## Workflow
 
-Collect all results into a master candidate list.
+### 1. Establish Project Context
 
----
+Determine the language and validation commands that actually exist in the repo.
 
-## PHASE 2: VERIFY — LSP Confirmation (Zero False Positives)
+Examples:
 
-For EACH candidate from Phase 1:
+- TypeScript: `bunx tsc --noEmit --noUnusedLocals --noUnusedParameters`
+- JS/TS lint: project lint or typecheck command
+- Python: linter, type checker, or test command if present
 
-```typescript
-LspFindReferences(filePath, line, character, includeDeclaration=false)
-// 0 references → CONFIRMED dead
-// 1+ references → NOT dead, drop from list
-```
+Do not invent commands that are not available in the repository.
 
-Also apply the false-positive-guards above. Produce a confirmed list:
+### 2. Gather Candidates
 
-```
-| # | File | Symbol | Type | Action |
-|---|------|--------|------|--------|
-| 1 | src/foo.ts:42 | unusedFunc | function | REMOVE |
-| 2 | src/bar.ts:10 | OldType | type | REMOVE |
-| 3 | src/baz.ts:7 | ctx | parameter | PREFIX _ |
-```
+Use repo-native evidence:
 
-**Action types:**
-- `REMOVE` — delete the symbol/import/file entirely
-- `PREFIX _` — unused function parameter required by signature → rename to `_paramName`
+- `glob` to find likely source files,
+- `grep` to find exports, imports, and symbol references,
+- `read` to inspect files before making decisions,
+- `bash` only for safe project analysis commands such as typecheck, lint, or tests.
 
-If ZERO confirmed: report "No dead code found" and STOP.
+If helpful, delegate read-only search to the built-in `explore` agent, but keep final decisions in the main flow.
 
----
+### 3. Verify Each Candidate
 
-## PHASE 3: BATCH — Group by File for Conflict-Free Parallelism
+For every candidate, verify all of the following before editing:
 
-<batching-rules>
+1. The symbol or file is not part of an entry point or public API.
+2. It is not referenced by tests, docs examples, config, or exports.
+3. Search results show no meaningful usages outside the declaration site.
+4. The surrounding file structure confirms the removal is syntactically safe.
 
-**Goal: maximize parallel agents with ZERO git conflicts.**
+Use these action types:
 
-1. Group confirmed dead code items by FILE PATH
-2. All items in the SAME file go to the SAME batch (prevents two agents editing the same file)
-3. If a dead FILE (entire file deletion) exists, it's its own batch
-4. Target 5-15 batches. If fewer than 5 items total, use 1 batch per item.
+- `REMOVE` -> delete an unused import, declaration, or dead file when confidence is high.
+- `PREFIX _` -> rename an unused parameter to `_name` when the signature still matters.
+- `SKIP` -> keep the candidate when confidence is not high enough.
 
-**Example batching:**
-```
-Batch A: [src/hooks/foo/hook.ts — 3 unused imports]
-Batch B: [src/features/bar/manager.ts — 2 unused constants, 1 dead function]
-Batch C: [src/tools/baz/tool.ts — 1 unused param, src/tools/baz/types.ts — 1 unused type]
-Batch D: [src/dead-file.ts — entire file deletion]
-```
+If there are no high-confidence candidates, report `No dead code found` and stop.
 
-Files in the same directory CAN be batched together (they won't conflict as long as no two agents edit the same file). Maximize batch count for parallelism.
+### 4. Decide Whether To Edit Immediately
 
-</batching-rules>
+Proceed without another question only when all of these are true:
 
----
+- scope is narrow or candidate count is small,
+- confidence is high,
+- changes are localized,
+- validation is cheap.
 
-## PHASE 4: EXECUTE — Fire Parallel Deep Agents
+Otherwise, present a candidate table first and ask the user which removals to apply.
 
-For EACH batch, fire a deep agent:
+### 5. Apply Changes Safely
 
-```
-task(
-  category="deep",
-  load_skills=["typescript-programmer", "git-master"],
-  run_in_background=true,
-  description="Remove dead code batch N: [brief description]",
-  prompt="[see template below]"
-)
-```
+When editing:
 
-<agent-prompt-template>
+1. Work file by file.
+2. Re-read the file before modifying it.
+3. Clean up trailing commas, blank lines, and import lists.
+4. Prefer minimal edits that keep behavior unchanged.
+5. Do not touch unrelated user changes.
 
-Every deep agent gets this prompt structure (fill in the specifics per batch):
+### 6. Validate After Edits
 
-```
-## TASK: Remove dead code from [file list]
+Run the closest available validation:
 
-## DEAD CODE TO REMOVE
+- typecheck for typed languages,
+- targeted tests if relevant,
+- build only if it is a normal lightweight project check.
 
-### [file path] line [N]
-- Symbol: `[name]` — [type: unused import / unused constant / unused function / unused parameter / dead file]
-- Action: [REMOVE entirely / REMOVE from import list / PREFIX with _]
+If validation fails:
 
-### [file path] line [N]
-- ...
+1. Stop immediately.
+2. Report the failure clearly.
+3. Do not auto-revert with destructive git commands.
+4. Ask the user how to proceed.
 
-## PROTOCOL
+## Output Format
 
-1. Read each file to understand exact syntax at the target lines
-2. For each symbol, run LspFindReferences to RE-VERIFY it's still dead (another agent may have changed things)
-3. Apply the change:
-   - Unused import (only symbol in line): remove entire import line
-   - Unused import (one of many): remove only that symbol from the import list
-   - Unused constant/function/type: remove the declaration. Clean up trailing blank lines.
-   - Unused parameter: prefix with `_` (do NOT remove — required by signature)
-   - Dead file: delete with `rm`
-4. After ALL edits in this batch, run: `bun run typecheck`
-5. If typecheck fails: `git checkout -- [files]` and report failure
-6. If typecheck passes: stage ONLY your files and commit:
-   `git add [your-specific-files] && git commit -m "refactor: remove dead code from [brief file list]"`
-7. Report what you removed and the commit hash
-
-## CRITICAL
-- Stage ONLY your batch's files (`git add [specific files]`). NEVER `git add -A` — other agents are working in parallel.
-- If typecheck fails after your edits, REVERT all changes and report. Do not attempt to fix.
-- Pre-existing test failures in other files are expected. Only typecheck matters for your batch.
-```
-
-</agent-prompt-template>
-
-Fire ALL batches simultaneously. Wait for all to complete.
-
----
-
-## PHASE 5: FINAL VERIFICATION
-
-After ALL agents complete:
-
-```bash
-bun run typecheck   # must pass
-bun test            # note any NEW failures vs pre-existing
-bun run build       # must pass
-```
-
-Produce summary:
+Report results as:
 
 ```markdown
-## Dead Code Removal Complete
+## Dead Code Review
 
 ### Removed
-| # | Symbol | File | Type | Commit | Agent |
-|---|--------|------|------|--------|-------|
-| 1 | unusedFunc | src/foo.ts | function | abc1234 | Batch A |
+| # | Symbol/File | Action | Reason |
+|---|-------------|--------|--------|
 
-### Skipped (agent reported failure)
-| # | Symbol | File | Reason |
-|---|--------|------|--------|
+### Skipped
+| # | Symbol/File | Reason |
+|---|-------------|--------|
 
-### Verification
-- Typecheck: PASS/FAIL
-- Tests: X passing, Y failing (Z pre-existing)
-- Build: PASS/FAIL
-- Total removed: N symbols across M files
-- Total commits: K atomic commits
-- Parallel agents used: P
+### Validation
+- Typecheck: PASS/FAIL/NOT RUN
+- Tests: PASS/FAIL/NOT RUN
+- Build: PASS/FAIL/NOT RUN
 ```
 
----
+## Abort Conditions
 
-## SCOPE CONTROL
+Stop and ask before editing if:
 
-If `$ARGUMENTS` is provided, narrow the scan:
-- File path → only that file
-- Directory → only that directory
-- Symbol name → only that symbol
-- `all` or empty → full project scan (default)
-
-## ABORT CONDITIONS
-
-STOP and report if:
-- More than 50 candidates found (ask user to narrow scope or confirm proceeding)
-- Build breaks and cannot be fixed by reverting
-
-</command-instruction>
-
-<user-request>
-$ARGUMENTS
-</user-request>
+- more than 25 plausible candidates are found,
+- the scope is ambiguous,
+- the repo has dirty changes in the same files,
+- validation commands are missing and safety cannot be established.

@@ -1,4 +1,12 @@
-Refactor code with confidence using comprehensive test safety net:
+---
+description: "Refactor code safely with a test-first safety net in the TDD refactor phase"
+argument-hint: "<code, feature, or file paths to refactor>"
+agent: tdd-workflows-tdd-orchestrator
+---
+
+# TDD Refactor Phase
+
+Refactor code with confidence using a comprehensive test safety net.
 
 [Extended thinking: This tool uses the tdd-orchestrator agent (opus model) for sophisticated refactoring while maintaining all tests green. It applies design patterns, improves code quality, and optimizes performance with the safety of comprehensive test coverage.]
 

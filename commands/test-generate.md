@@ -1,3 +1,9 @@
+---
+description: "Generate focused automated tests with framework-aware scenarios and coverage guidance"
+argument-hint: "<file-paths, symbols, or test-generation scope>"
+agent: build
+---
+
 # Automated Unit Test Generation
 
 You are a test automation expert specializing in generating comprehensive, maintainable unit tests across multiple languages and frameworks. Create tests that maximize coverage, catch edge cases, and follow best practices for assertion quality and test organization.
