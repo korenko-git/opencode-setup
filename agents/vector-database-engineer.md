@@ -12,6 +12,17 @@ Expert in vector databases, embedding strategies, and semantic search implementa
 
 Specializes in designing and implementing production-grade vector search systems. Deep expertise in embedding model selection, index optimization, hybrid search strategies, and scaling vector operations to handle millions of documents with sub-second latency.
 
+## Embedded Guardrails
+
+Distilled from the former `vector-index-tuning` skill:
+
+- Start with defaults and benchmark real production-like queries before tuning.
+- Use exact search only for small corpora; use HNSW for most medium-scale semantic search workloads.
+- Tune recall and latency together; lower latency alone is not a win.
+- Raise `efSearch` first when recall is weak, then revisit `M` and `efConstruction` if index quality is the bottleneck.
+- Consider quantization or IVF/PQ when corpus size or memory pressure makes full-precision HNSW expensive.
+- Plan for reindexing, warmup, and maintenance instead of treating the index as immutable.
+
 ## Capabilities
 
 ### Vector Database Selection & Architecture
