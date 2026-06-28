@@ -1,5 +1,5 @@
 ---
-name: auth
+name: add-google-auth
 description: "Google OAuth auth flow with JWT, backend routes, and frontend auth state"
 argument-hint: "[auth task, scope, or file paths]"
 agent: build

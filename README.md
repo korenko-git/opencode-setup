@@ -108,11 +108,11 @@ It contains:
 | Command | Purpose |
 |--------|---------|
 | `/accessibility-audit` | Audit UI code for WCAG compliance |
-| `/analytics` | Apply the analytics integration guide for Plausible, GTM, and Yandex.Metrika |
-| `/auth` | Apply the Google OAuth + JWT authentication guide |
+| `/add-analytics` | Apply the analytics integration guide for Plausible, GTM, and Yandex.Metrika |
+| `/add-google-auth` | Apply the Google OAuth + JWT authentication guide |
 | `/design-review` | Review existing UI for design and usability issues |
 | `/design-system-setup` | Initialize design tokens and design-system scaffolding |
-| `/limits-and-credits` | Apply the ledger-based billing and credits guide |
+| `/add-limits-and-credits` | Apply the ledger-based billing and credits guide |
 
 ### Code, Docs, and Architecture
 

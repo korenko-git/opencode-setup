@@ -1,4 +1,5 @@
 ---
+name: add-limits-and-credits
 description: "Credit-based billing, ledger balance, webhooks, and usage checks"
 argument-hint: "[credits task, scope, or file paths]"
 agent: build

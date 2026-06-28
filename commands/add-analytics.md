@@ -1,5 +1,5 @@
 ---
-name: analytics
+name: add-analytics
 description: "Analytics wiring for Plausible, GTM, and Yandex.Metrika with consent gating"
 argument-hint: "[analytics task, scope, or file paths]"
 agent: build
