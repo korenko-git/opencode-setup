@@ -141,6 +141,7 @@ These are the main reusable skills under `skills/`.
 
 | Skill | Purpose |
 |------|---------|
+| `accessibility-compliance` | Implement WCAG 2.2 compliant interfaces with mobile accessibility, inclusive design patterns, and assistive technology support. |
 | `codebase-design` | Shared vocabulary for designing deeper, more coherent modules |
 | `commit-message` | Commit message generation helpers and analysis tooling |
 | `domain-modeling` | Domain language, ADRs, and model refinement |
