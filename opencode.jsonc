@@ -23,6 +23,7 @@
         "skill": {
           "*": "allow",
           "improve-codebase-architecture": "deny",
+          "codebase-design": "deny",
         }
       }
     }
