@@ -4,7 +4,7 @@ Curated personal OpenCode setup stored in `~/.config/opencode`.
 
 It contains:
 
-- focused local agents for architecture, languages, data, UI, and TDD,
+- two local subagents for implementation and lightweight text-first work,
 - explicit slash commands for recurring workflows,
 - primary reusable skills in `skills/`,
 - modular rule files in `rules/` and `docs/`,
@@ -12,9 +12,9 @@ It contains:
 
 ## Snapshot
 
-- **26 local agents** in `agents/`
+- **2 local agents** in `agents/`
 - **19 slash commands** in `commands/`
-- **12 primary skills** in `skills/`
+- **13 primary skills** in `skills/`
 - **7 OpenCode reference skills** in `.agents/skills/`
 - **Plugin version:** `@opencode-ai/plugin@1.17.7`
 
@@ -47,59 +47,21 @@ It contains:
 
 ### Current Config Notes
 
-- All skills are allowed by default through `opencode.jsonc`.
-- `improve-codebase-architecture` is explicitly denied in `opencode.jsonc`.
+- `small_model` is set to `openai/gpt-5-mini` for cheaper helper and background tasks.
+- The built-in `plan` agent is permission-scoped to the `project-map` skill plus the `explore` and `local-developer` subagents.
+- The built-in `build` agent is configured to allow all subagent tasks and all skills except `improve-codebase-architecture`.
+- The `local-developer` subagent is the execution-side companion for planner-driven workflows and currently has broad local execution permissions.
+- The `quick-helper` subagent uses `openai/gpt-5-mini` for low-cost text-first tasks such as commit messages, short summaries, and small rewrites.
 - `AGENTS.md` uses lazy loading for referenced instruction files instead of inlining every rule.
 - User-facing communication should match the user's language, per `rules/general-guidelines.md`.
 - The active rule path is intentionally minimal: always load `rules/general-guidelines.md`, and load `docs/architecture-rules.md` when the task needs architecture guidance.
 
 ## Local Agents
 
-### Architecture, Platform, and Data
-
 | Agent | Focus |
 |------|-------|
-| `architect-review` | Architecture review, clean architecture, DDD, microservices |
-| `backend-architect` | Scalable backend services, APIs, distributed systems |
-| `database-admin` | Cloud DB operations, HA/DR, automation, compliance |
-| `database-architect` | Data modeling, DB selection, schema-first architecture |
-| `database-optimizer` | Query tuning, indexing, caching, performance |
-| `data-engineer` | Data pipelines, streaming, Spark, dbt, warehouse design |
-| `deployment-engineer` | CI/CD, GitOps, deployment automation |
-| `performance-engineer` | Observability, OpenTelemetry, load/perf optimization |
-| `graphql-architect` | GraphQL schemas, federation, security, performance |
-| `vector-database-engineer` | Semantic search, embeddings, vector DB systems |
-
-### Languages and Frameworks
-
-| Agent | Focus |
-|------|-------|
-| `bash-pro` | Defensive Bash scripting and automation |
-| `cpp-pro` | Modern C++, RAII, templates, performance |
-| `django-pro` | Django 5.x, DRF, Channels, Celery |
-| `fastapi-pro` | Async APIs with FastAPI, SQLAlchemy 2.0, Pydantic V2 |
-| `golang-pro` | Go 1.21+, concurrency, services, performance |
-| `php-pro` | Modern PHP, SPL, generators, OOP |
-| `python-pro` | Python 3.12+, async, performance, modern tooling |
-| `rust-pro` | Rust async and systems programming |
-| `sql-pro` | SQL design, query tuning, analytical workloads |
-| `typescript-pro` | Advanced TypeScript and strict typing |
-
-### Product, UX, AI, and Workflow
-
-| Agent | Focus |
-|------|-------|
-| `design-system-architect` | Tokens, theming, component library design |
-| `ui-designer` | UI implementation, layouts, visual design |
-| `ai-engineer` | Production LLM apps, RAG systems, agent orchestration, multimodal AI |
-| `prompt-engineer` | Prompt design, review, and optimization |
-| `tdd-orchestrator` | Red-green-refactor workflow and TDD governance |
-
-### Documentation
-
-| Agent | Focus |
-|------|-------|
-| `api-documenter` | OpenAPI 3.1, SDK generation, interactive API docs, developer portals |
+| `local-developer` | Local execution subagent that implements planner-scoped changes, edits code, and keeps the project map workflow grounded in the real repository |
+| `quick-helper` | Lightweight text-first helper on `openai/gpt-5-mini` for commit messages, short summaries, compact rewrites, and similar low-cost tasks |
 
 ## Slash Commands
 
@@ -156,6 +118,7 @@ These are the main reusable skills under `skills/`.
 | `i18n` | Unified localization architecture, audits, and SEO-aware translation workflow |
 | `improve-codebase-architecture` | Deepening scan with HTML report output |
 | `payments-integration` | Stripe, PayPal, LemonSqueezy, and YooKassa integration patterns |
+| `project-map` | Generates compact codebase maps for planner-driven workflows using signatures without implementation bodies |
 | `responsive-design` | Modern adaptive layout patterns and responsive UI guidance |
 | `security-suite` | Unified security workflow from threat modeling to hardening |
 | `seo-suite` | SEO optimization across structure, snippets, freshness, and authority |
@@ -165,6 +128,7 @@ These are the main reusable skills under `skills/`.
 
 - `i18n` is the primary localization skill in this repository.
 - `i18n` explicitly prefers domain-based message files such as `locales/en/common.json`.
+- `project-map` includes a real helper script in `skills/project-map/project_map.py` for regenerating maps instead of editing them manually.
 - `security-suite`, `seo-suite`, and `payments-integration` are multi-file suites with reference modules.
 - `commit-message` and `i18n` both include helper scripts inside the skill directory.
 
