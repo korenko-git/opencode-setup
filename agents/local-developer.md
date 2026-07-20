@@ -2,6 +2,9 @@
 description: Local implementation subagent for coding tasks.
 mode: subagent
 permission:
+  edit: allow
+  task:
+    "*": allow
   skill:
     "*": allow
 ---
