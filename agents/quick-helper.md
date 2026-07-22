@@ -1,7 +1,7 @@
 ---
 description: Lightweight subagent for commit messages, short summaries, compact rewrites, and other low-cost text-first tasks that do not require implementation work.
 mode: subagent
-model: openai/gpt-5-mini
+model: openai/gpt-5.6-luna
 permission:
   edit: deny
   bash:

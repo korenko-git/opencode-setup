@@ -1,6 +1,6 @@
 ---
 name: project-map
-description: Use this skill when you need to build a "project map" - a compact representation of the codebase structure (file tree + class/function signatures WITHOUT implementation bodies, similar to C++ .h headers). Triggers: the user asks "make a project map", "show the code structure without implementation", "I need a codebase overview for another agent/planner", "update the map after changes", or "compress the project down to signatures". Also use it proactively when the user describes a workflow like "cloud planning agent + local implementation model" that needs compact structural context without spending tokens on function bodies.
+description: Use this skill when you need to build a "project map" - a compact representation of the codebase structure. Triggers: the user asks "make a project map", "show the code structure without implementation", "I need a codebase overview for another agent/planner", "update the map after changes", or "compress the project down to signatures". Also use it proactively when the user asks for an architecture overview, backend architecture review, frontend architecture review, system design review, module-boundary analysis, dependency-flow analysis, entry-point analysis, or architectural assessment of an existing codebase.
 ---
 
 # Project Map - project map (signatures without implementation)
@@ -23,6 +23,26 @@ The local implementation model then:
 4. **Runs the script again** to refresh the map to match the current repository
    state - the map must be regenerated after every meaningful structural change
    (new functions/classes/files), not edited manually.
+
+## Structural Overview vs. Architecture Review
+
+- **Structural overview** answers "what exists and where". Run
+  `scripts/project_map.py`, then provide the generated map as the primary
+  context. Do not infer runtime behavior that the map cannot show.
+- **Architecture review** answers "how the system is organized and behaves".
+  Start by running `scripts/project_map.py`, then read only the key entry points
+  and boundaries needed to trace the requested behavior. Typical targets
+  include application startup, API/router registration, worker or job
+  dispatch, service orchestration, persistence/repository boundaries, external
+  integrations, frontend route/layout entry points, state/data-fetching
+  boundaries, and backend/frontend integration points.
+- Expand file reading only when the map and the already-read boundaries show
+  that it is necessary to validate a specific dependency, control flow, or
+  architectural claim. The map is a navigator, not a substitute for targeted
+  source inspection.
+- Do not read the entire repository sequentially or open every file "for
+  completeness" when a project map and targeted entry-point/boundary reads are
+  sufficient.
 
 ## How To Use It
 
@@ -56,6 +76,17 @@ python3 scripts/project_map.py . --out PROJECT_MAP.md \
 ```
 
 ## What To Do After Running It
+
+For an architecture review, use this workflow:
+
+- Run `scripts/project_map.py` first, using the repository root or the
+   relevant backend/frontend subdirectory as the scope.
+- Use the resulting map to identify the smallest set of key entry points and
+   architectural boundaries relevant to the question.
+- Read those files and trace only the behavior required for the review,
+   following imports, calls, and data flow selectively.
+- Report structural facts separately from behavioral findings, assumptions,
+   boundary violations, coupling, and risks.
 
 1. Check that `PROJECT_MAP.md` was created in the repository root (or wherever
    `--out` points).

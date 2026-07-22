@@ -1,6 +1,9 @@
 ---
-description: Local implementation subagent for coding tasks.
+description: >
+  Use this subagent for any source code changes. The primary agent should never
+  modify code directly and must delegate implementation tasks in English.
 mode: subagent
+model: lmstudio/ornith-1.0-35b
 permission:
   edit: allow
   task:
