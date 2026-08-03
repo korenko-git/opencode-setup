@@ -27,6 +27,9 @@ A curated [OpenCode](https://opencode.ai) configuration focused on high-quality 
 | `rules/general-guidelines.md` | Always-loaded execution, style, git, and security rules |
 | `docs/architecture-rules.md` | On-demand architecture and reuse rules |
 
+> [!TIP]
+> If you run OpenCode from WSL, set your own LM Studio host IP in `opencode.jsonc` instead of `localhost`. WSL usually needs the machine IP available inside your local network.
+
 ## Agents
 
 The repository defines three subagents:
