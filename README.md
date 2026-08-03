@@ -4,15 +4,6 @@ A curated [OpenCode](https://opencode.ai) configuration focused on high-quality 
 
 It includes reusable subagents, production-ready slash commands, and modular skills for architecture, TDD, security, documentation, UI development, and project maintenance.
 
-## Table of Contents
- 
-- [Snapshot](#snapshot)
-- [Configuration](#configuration)
-- [Agents](#agents)
-- [Slash Commands](#slash-commands)
-- [Primary Skills](#primary-skills)
-- [OpenCode Reference](#opencode-reference)
-
 ## Snapshot
  
 | Category | Count | Location |
