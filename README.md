@@ -1,69 +1,45 @@
 # OpenCode Setup
 
-Curated personal OpenCode setup stored in `~/.config/opencode`.
+A curated [OpenCode](https://opencode.ai) configuration focused on high-quality software engineering workflows.
 
-It contains:
+It includes reusable subagents, production-ready slash commands, and modular skills for architecture, TDD, security, documentation, UI development, and project maintenance.
 
-- three subagents for implementation, lightweight text-first work, and code review,
-- explicit slash commands for recurring workflows,
-- primary reusable skills in `skills/`,
-- modular rule files in `rules/` and `docs/`,
-- a separate OpenCode reference suite in `.agents/skills/` for authoring and maintaining OpenCode itself.
+## Table of Contents
+ 
+- [Snapshot](#snapshot)
+- [Configuration](#configuration)
+- [Agents](#agents)
+- [Slash Commands](#slash-commands)
+- [Primary Skills](#primary-skills)
+- [OpenCode Reference](#opencode-reference)
 
 ## Snapshot
-
-- **3 subagents** across `agents/`
-- **19 slash commands** in `commands/`
-- **14 primary skills** in `skills/`
-- **7 OpenCode reference skills** in `.agents/skills/`
-- **Plugin version:** `@opencode-ai/plugin@1.17.7`
-
-## Repository Layout
-
-```text
-~/.config/opencode/
-├── AGENTS.md                 # Global instructions for agents working in this repo
-├── README.md                 # This document
-├── docs/                     # Task-specific rule files loaded on demand
-├── opencode.jsonc            # Main OpenCode config
-├── package.json              # Plugin dependency
-├── rules/                    # Always-applicable shared guidelines
-├── agents/                   # Agent definition files
-├── commands/                 # Slash commands available in the TUI
-├── skills/                   # Primary reusable skills
-└── .agents/
-    └── skills/               # OpenCode-specific reference skills
-```
+ 
+| Category | Count | Location |
+| --- | --- | --- |
+| Subagents | 3 | `agents/` |
+| Slash commands | 19 | `commands/` |
+| Primary skills | 14 | `skills/` |
+| OpenCode reference skills | 7 | `.agents/skills/` |
 
 ## Configuration
 
 | File | Purpose |
-|------|---------|
-| `opencode.jsonc` | Main OpenCode config using schema `https://opencode.ai/config.json` |
-| `AGENTS.md` | Router-style instruction entrypoint with lazy-loaded references |
-| `rules/general-guidelines.md` | Always-applicable execution, code style, git, and security rules |
-| `docs/architecture-rules.md` | Architecture, reuse, module ownership, and anti-duplication guardrails |
-| `package.json` | Pins `@opencode-ai/plugin` to `1.17.7` |
+| --- | --- |
+| `opencode.jsonc` | Main OpenCode config using the official config schema |
+| `AGENTS.md` | Global instruction router |
+| `rules/general-guidelines.md` | Always-loaded execution, style, git, and security rules |
+| `docs/architecture-rules.md` | On-demand architecture and reuse rules |
 
-### Current Config Notes
+## Agents
 
-- `small_model` is set to `openai/gpt-5.6-luna` for cheaper helper and background tasks.
-- The built-in `plan` agent uses `openai/gpt-5.6-sol` and is permission-scoped to the `project-map` skill plus the `explore` subagent only.
-- The built-in `build` agent uses `openai/gpt-5.6-terra`, allows subagent tasks, and only exposes the `project-map` skill.
-- The configured `code-reviewer` subagent is read-only, runs on `openai/gpt-5.6-sol`, and focuses on security, performance, and maintainability reviews.
-- The `implementation` subagent is the execution-side coding agent for real repository changes and verification.
-- The `lightweight` subagent uses `openai/gpt-5.6-luna` for low-cost text-first tasks such as commit messages, short summaries, and small rewrites.
-- `AGENTS.md` uses lazy loading for referenced instruction files instead of inlining every rule.
-- User-facing communication should match the user's language, per `rules/general-guidelines.md`.
-- The active rule path is intentionally minimal: always load `rules/general-guidelines.md`, and load `docs/architecture-rules.md` when the task needs architecture guidance.
+The repository defines three subagents:
 
-## Configured Agents
-
-| Agent | Focus |
-|------|-------|
-| `implementation` | Execution subagent that inspects the real repository, implements source changes, runs verification, and reports the result |
-| `lightweight` | Lightweight text-first helper on `openai/gpt-5.6-luna` for commit messages, short summaries, compact rewrites, and similar low-cost tasks |
-| `code-reviewer` | Read-only review subagent focused on security, performance, and maintainability |
+| Agent | Purpose |
+| --- | --- |
+| `implementation` | Makes source changes, inspects the real repository, runs relevant verification, and reports the result |
+| `lightweight` | Handles low-cost text-first tasks such as summaries, rewrites, and commit-related text |
+| `coder-review` | Read-only review agent focused on security, performance, and maintainability |
 
 ## Slash Commands
 
@@ -100,15 +76,9 @@ It contains:
 | `/tdd-refactor` | Refactor safely with test coverage as a safety net |
 | `/test-generate` | Generate targeted automated tests |
 
-### OpenCode Maintenance
-
-| Command | Purpose |
-|--------|---------|
-| `/update-opencode-skills` | Refresh local OpenCode reference skills against current docs |
-
 ## Primary Skills
 
-These are the main reusable skills under `skills/`.
+Reusable skills under skills/, applicable across projects:
 
 | Skill | Purpose |
 |------|---------|
@@ -127,17 +97,11 @@ These are the main reusable skills under `skills/`.
 | `seo-suite` | SEO optimization across structure, snippets, freshness, and authority |
 | `tdd` | Test-driven development practices and reference materials |
 
-### Notable Skill Suites
+## OpenCode Reference 
 
-- `i18n` is the primary localization skill in this repository.
-- `i18n` explicitly prefers domain-based message files such as `locales/en/common.json`.
-- `project-map` includes a real helper script in `skills/project-map/project_map.py` for regenerating maps instead of editing them manually.
-- `security-suite`, `seo-suite`, and `payments-integration` are multi-file suites with reference modules.
-- `commit-message` and `i18n` both include helper scripts inside the skill directory.
+Documentation and skills for working with OpenCode itself, kept separate from the primary, project-facing skills above.
 
-## OpenCode Reference Skills
-
-These live under `.agents/skills/` and document how to work with OpenCode itself.
+### Skills (`.agents/skills/`)
 
 | Skill | Purpose |
 |------|---------|
@@ -148,3 +112,9 @@ These live under `.agents/skills/` and document how to work with OpenCode itself
 | `opencode-rules` | `AGENTS.md`, instructions, and rule precedence |
 | `opencode-skills` | Skill authoring, discovery, and permissions |
 | `opencode-tools-permissions` | Tool access, approvals, and permission patterns |
+
+### Maintenance
+
+| Command | Purpose |
+|--------|---------|
+| `/update-opencode-skills` | Refresh local OpenCode reference skills against current docs |
