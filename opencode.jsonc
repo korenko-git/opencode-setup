@@ -1,6 +1,34 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "small_model": "openai/gpt-5.6-luna",
+  "agent": {
+    "plan": {
+      "model": "openai/gpt-5.6-sol",
+      "permission": {
+        "task": {
+          "*": "deny",
+          "explore": "allow",
+        },
+        "skill": {
+          "*": "deny",
+          "project-map": "allow"
+        }
+      }
+    },
+    "build": {
+      "model": "openai/gpt-5.6-terra",
+      "permission": {
+        "task": {
+          "*": "allow",
+        },
+        "skill": {
+          "*": "deny",
+          "project-map": "allow"
+        }
+      }
+    }
+  },
+
   "provider": {
     "lmstudio": {
       "npm": "@ai-sdk/openai-compatible",
@@ -15,31 +43,4 @@
       }
     }
   },
-  "agent": {
-    "plan": {
-      "permission": {
-        "task": {
-          "*": "deny",
-          "explore": "allow",
-          "local-developer": "allow"
-        },
-        "skill": {
-          "*": "deny",
-          "project-map": "allow"
-        }
-      }
-    },
-    "build": {
-      "permission": {
-        "task": {
-          "*": "allow",
-        },
-        "skill": {
-          "*": "allow",
-          "improve-codebase-architecture": "deny",
-          "codebase-design": "deny",
-        }
-      }
-    }
-  }
 }

@@ -1,5 +1,8 @@
 ---
-description: Lightweight subagent for commit messages, short summaries, compact rewrites, and other low-cost text-first tasks that do not require implementation work.
+description: >
+  Handles low-cost text-only tasks such as commit messages, changelog entries,
+  short summaries, compact rewrites, naming suggestions, and similar lightweight
+  work that does not require code implementation.
 mode: subagent
 model: openai/gpt-5.6-luna
 permission:

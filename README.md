@@ -4,7 +4,7 @@ Curated personal OpenCode setup stored in `~/.config/opencode`.
 
 It contains:
 
-- two local subagents for implementation and lightweight text-first work,
+- three subagents for implementation, lightweight text-first work, and code review,
 - explicit slash commands for recurring workflows,
 - primary reusable skills in `skills/`,
 - modular rule files in `rules/` and `docs/`,
@@ -12,7 +12,7 @@ It contains:
 
 ## Snapshot
 
-- **2 local agents** in `agents/`
+- **3 subagents** across `agents/`
 - **19 slash commands** in `commands/`
 - **13 primary skills** in `skills/`
 - **7 OpenCode reference skills** in `.agents/skills/`
@@ -28,7 +28,7 @@ It contains:
 ├── opencode.jsonc            # Main OpenCode config
 ├── package.json              # Plugin dependency
 ├── rules/                    # Always-applicable shared guidelines
-├── agents/                   # Local agent definitions
+├── agents/                   # Agent definition files
 ├── commands/                 # Slash commands available in the TUI
 ├── skills/                   # Primary reusable skills
 └── .agents/
@@ -47,21 +47,23 @@ It contains:
 
 ### Current Config Notes
 
-- `small_model` is set to `openai/gpt-5-mini` for cheaper helper and background tasks.
-- The built-in `plan` agent is permission-scoped to the `project-map` skill plus the `explore` and `local-developer` subagents.
-- The built-in `build` agent is configured to allow all subagent tasks and all skills except `improve-codebase-architecture`.
-- The `local-developer` subagent is the execution-side companion for planner-driven workflows and currently has broad local execution permissions.
-- The `quick-helper` subagent uses `openai/gpt-5-mini` for low-cost text-first tasks such as commit messages, short summaries, and small rewrites.
+- `small_model` is set to `openai/gpt-5.6-luna` for cheaper helper and background tasks.
+- The built-in `plan` agent uses `openai/gpt-5.6-sol` and is permission-scoped to the `project-map` skill plus the `explore` subagent only.
+- The built-in `build` agent uses `openai/gpt-5.6-terra`, allows subagent tasks, and only exposes the `project-map` skill.
+- The configured `code-reviewer` subagent is read-only, runs on `openai/gpt-5.6-sol`, and focuses on security, performance, and maintainability reviews.
+- The `implementation` subagent is the execution-side coding agent for real repository changes and verification.
+- The `lightweight` subagent uses `openai/gpt-5.6-luna` for low-cost text-first tasks such as commit messages, short summaries, and small rewrites.
 - `AGENTS.md` uses lazy loading for referenced instruction files instead of inlining every rule.
 - User-facing communication should match the user's language, per `rules/general-guidelines.md`.
 - The active rule path is intentionally minimal: always load `rules/general-guidelines.md`, and load `docs/architecture-rules.md` when the task needs architecture guidance.
 
-## Local Agents
+## Configured Agents
 
 | Agent | Focus |
 |------|-------|
-| `local-developer` | Local execution subagent that implements planner-scoped changes, edits code, and keeps the project map workflow grounded in the real repository |
-| `quick-helper` | Lightweight text-first helper on `openai/gpt-5-mini` for commit messages, short summaries, compact rewrites, and similar low-cost tasks |
+| `implementation` | Execution subagent that inspects the real repository, implements source changes, runs verification, and reports the result |
+| `lightweight` | Lightweight text-first helper on `openai/gpt-5.6-luna` for commit messages, short summaries, compact rewrites, and similar low-cost tasks |
+| `code-reviewer` | Read-only review subagent focused on security, performance, and maintainability |
 
 ## Slash Commands
 

@@ -14,13 +14,13 @@ Analyze git changes and generate context-aware commit messages following Convent
 
 ```bash
 # Analyze all changes
-python3 .shared/commit-message/scripts/analyze_changes.py --analyze
+python3 ./scripts/analyze_changes.py --analyze
 
 # Get batch commit suggestions
-python3 .shared/commit-message/scripts/analyze_changes.py --batch
+python3 ./scripts/analyze_changes.py --batch
 
 # Generate message for specific files
-python3 .shared/commit-message/scripts/analyze_changes.py --generate "src/api/*.py"
+python3 ./scripts/analyze_changes.py --generate "src/api/*.py"
 ```
 
 ## Commands
