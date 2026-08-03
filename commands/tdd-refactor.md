@@ -1,7 +1,7 @@
 ---
 description: "Refactor code safely with a test-first safety net in the TDD refactor phase"
 argument-hint: "<code, feature, or file paths to refactor>"
-agent: tdd-workflows-tdd-orchestrator
+agent: tdd-orchestrator
 ---
 
 # TDD Refactor Phase
@@ -12,7 +12,7 @@ Refactor code with confidence using a comprehensive test safety net.
 
 ## Usage
 
-Use Task tool with subagent_type="tdd-workflows-tdd-orchestrator" to perform safe refactoring.
+Use Task tool with subagent_type="tdd-orchestrator" to perform safe refactoring.
 
 Prompt: "Refactor this code while keeping all tests green: $ARGUMENTS. Apply TDD refactor phase:
 

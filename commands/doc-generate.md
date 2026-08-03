@@ -1,6 +1,7 @@
 ---
 name: doc-generate
 description: "Generate comprehensive documentation for codebase"
+agent: lightweight
 ---
 
 # Automated Documentation Generation

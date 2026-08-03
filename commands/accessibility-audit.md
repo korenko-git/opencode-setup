@@ -1,5 +1,6 @@
 ---
 name: accessibility-audit
+agent: code-reviewer
 description: "Audit UI code for WCAG compliance"
 argument-hint: "[file-path|component-name|--level AA|AAA]"
 ---

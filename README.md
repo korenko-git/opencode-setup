@@ -13,7 +13,7 @@ A curated [OpenCode](https://opencode.ai) configuration focused on high-quality 
  
 | Category | Count | Location |
 | --- | --- | --- |
-| Subagents | 3 | `agents/` |
+| Subagents | 4 | `agents/` |
 | Slash commands | 19 | `commands/` |
 | Primary skills | 14 | `skills/` |
 | OpenCode reference skills | 7 | `.agents/skills/` |
@@ -35,7 +35,8 @@ The repository defines three subagents:
 | --- | --- |
 | `implementation` | Makes source changes, inspects the real repository, runs relevant verification, and reports the result |
 | `lightweight` | Handles low-cost text-first tasks such as summaries, rewrites, and commit-related text |
-| `coder-review` | Read-only review agent focused on security, performance, and maintainability |
+| `code-reviewer` | Read-only review agent focused on security, performance, and maintainability |
+| `tdd-orchestrator` | Orchestrator for TDD refactor phase |
 
 ## Slash Commands
 

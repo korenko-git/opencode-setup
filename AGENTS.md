@@ -29,7 +29,8 @@ Use subagents proactively when they match the task.
 
 - For non-trivial code changes, delegate implementation to an `implementation` subagent.
 - Before a multi-file refactor, use an `explore` subagent to identify affected modules and dependencies.
-- For a code review request, use a `coder-review` subagent before responding.
+- For a code review request, use a `code-reviewer` subagent before responding.
+- For a TDD refactor request, use a `tdd-orchestrator` subagent before responding.
 - Before creating commits, use a `lightweight` subagent to propose logical commit groups and commit messages.
 - Direct edits by the primary agent are allowed only for a trivial one-file change, or when delegation would add no value.
 - The primary agent remains responsible for integration, verification, and user communication.

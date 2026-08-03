@@ -1,7 +1,6 @@
 ---
 name: i18n
 description: Unified i18n architecture, localization workflow, and audit toolkit. Invoke when adding translations, fixing hardcoded UI copy, configuring locale routing, or validating locale parity and localized SEO.
-compatibility: opencode
 ---
 
 # I18n Suite
