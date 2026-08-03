@@ -118,3 +118,10 @@ Documentation and skills for working with OpenCode itself, kept separate from th
 | Command | Purpose |
 |--------|---------|
 | `/update-opencode-skills` | Refresh local OpenCode reference skills against current docs |
+
+## Related Projects
+
+- [skills.sh](https://www.skills.sh/) - directory of installable skills for coding agents
+- [mattpocock/skills](https://github.com/mattpocock/skills) - curated skills for agent workflows
+- [wshobson/agents](https://github.com/wshobson/agents) - reference collection of agent definitions
+- [sickn33/agentic-awesome-skills](https://github.com/sickn33/agentic-awesome-skills) - community collection of agentic skills
