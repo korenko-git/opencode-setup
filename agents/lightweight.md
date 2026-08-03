@@ -15,6 +15,7 @@ permission:
   skill:
     "*": deny
     "commit-message": allow
+    "create-readme": allow
 ---
 
 You are a lightweight helper subagent for simple, low-cost tasks.

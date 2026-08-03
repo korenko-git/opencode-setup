@@ -14,7 +14,7 @@ It contains:
 
 - **3 subagents** across `agents/`
 - **19 slash commands** in `commands/`
-- **13 primary skills** in `skills/`
+- **14 primary skills** in `skills/`
 - **7 OpenCode reference skills** in `.agents/skills/`
 - **Plugin version:** `@opencode-ai/plugin@1.17.7`
 
@@ -115,6 +115,7 @@ These are the main reusable skills under `skills/`.
 | `accessibility-compliance` | Implement WCAG 2.2 compliant interfaces with mobile accessibility, inclusive design patterns, and assistive technology support. |
 | `codebase-design` | Shared vocabulary for designing deeper, more coherent modules |
 | `commit-message` | Commit message generation helpers and analysis tooling |
+| `create-readme` | Create a README.md file for the project |
 | `domain-modeling` | Domain language, ADRs, and model refinement |
 | `find-skills` | Discover relevant installable skills for a task |
 | `i18n` | Unified localization architecture, audits, and SEO-aware translation workflow |
@@ -147,21 +148,3 @@ These live under `.agents/skills/` and document how to work with OpenCode itself
 | `opencode-rules` | `AGENTS.md`, instructions, and rule precedence |
 | `opencode-skills` | Skill authoring, discovery, and permissions |
 | `opencode-tools-permissions` | Tool access, approvals, and permission patterns |
-
-## Current Project Conventions
-
-- `analytics`, `auth`, and `limits-and-credits` are now maintained as **commands**, not primary skills.
-- The repository uses `~/.config/opencode` as the canonical location, not `.opencode/`.
-- Markdown command files are the main way recurring workflows are exposed to the TUI.
-- OpenCode-specific authoring guidance is intentionally separated into `.agents/skills/` so it does not mix with product/domain skills.
-- `AGENTS.md` is intentionally short and acts as a router to deeper guidance in `rules/` and `docs/`.
-- For non-trivial feature work, the preferred thinking model is module boundaries and domain ownership, using the design vocabulary from `skills/codebase-design` and `skills/domain-modeling`.
-- Architecture rules explicitly discourage one-file features, local utility duplication, and mixed-responsibility catch-all files.
-
-## Maintenance Checklist
-
-- Update `README.md` when agent, command, or skill counts change materially.
-- Update `README.md` when the rule system in `AGENTS.md`, `rules/`, or `docs/` changes materially.
-- Prefer editing existing commands and skills over introducing duplicates.
-- Keep `skills/<name>/SKILL.md` compliant with OpenCode discovery rules.
-- Re-check command and skill diagnostics after substantive markdown edits.
